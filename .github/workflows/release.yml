@@ -1,0 +1,52 @@
+name: Publish GitHub Release
+
+on:
+    push:
+        tags:
+            - '*'
+
+jobs:
+    build-and-release:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build plugin
+              run: npm run build
+
+            - name: Prepare Release Artifact
+              run: |
+                  # 1. Create a build directory
+                  mkdir binsaif-featured-video-replacer
+
+                  # 2. Copy files to build dir
+                  rsync -rc --exclude-from='.distignore' --exclude 'binsaif-featured-video-replacer' . binsaif-featured-video-replacer/
+
+                  # 3. CLEANUP: Force remove any .DS_Store files that slipped through
+                  find binsaif-featured-video-replacer -name ".DS_Store" -type f -delete
+
+                  # 4. Zip the clean directory
+                  zip -r binsaif-featured-video-replacer.zip binsaif-featured-video-replacer
+
+            - name: Create Release
+              uses: ncipollo/release-action@v1.14.0
+              with:
+                  artifacts: 'native-table.zip'
+                  token: ${{ secrets.TOKEN }}
+                  allowUpdates: true
+                  makeLatest: true
+                  tag: ${{ github.ref_name }}
+                  body: 'Release ${{ github.ref_name }}'

@@ -1,0 +1,44 @@
+# Directories
+/.github
+/.git
+/.vscode
+/.idea
+/node_modules
+/src
+/tests
+/.wordpress-org
+
+# Files
+.gitignore
+.gitattributes
+.editorconfig
+.eslintrc.json
+.prettierrc
+.prettierrc.json
+.babelrc
+.babelrc.json
+.distignore
+.DS_Store
+*.log
+*.lock
+package.json
+package-lock.json
+composer.json
+composer.lock
+webpack.config.js
+Gruntfile.js
+gulpfile.js
+README.md
+setup.md
+LICENSE.txt
+CONTRIBUTING.md
+CHANGELOG.md
+phpunit.xml
+phpcs.xml
+.phpcs.xml
+*.config.js
+*.config.json
+
+# Build artifacts  
+*.map
+*.LICENSE.txt
