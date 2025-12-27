@@ -44,7 +44,7 @@ jobs:
             - name: Create Release
               uses: ncipollo/release-action@v1.14.0
               with:
-                  artifacts: 'native-table.zip'
+                  artifacts: 'binsaif-featured-video-replacer.zip'
                   token: ${{ secrets.TOKEN }}
                   allowUpdates: true
                   makeLatest: true
